@@ -1,0 +1,441 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* NAGŁÓWEK */
+header {
+    background-image: url('zz.png'); /* Twoje zdjęcie banerowe */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+header p {
+    margin-top: 5px;
+    font-size: 1.1em;
+}
+
+/* NAWIGACJA (ZAKŁADKI) */
+#main-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #333; /* Ciemne tło dla nawigacji */
+    padding: 0;
+    margin-bottom: 30px; /* Odstęp od głównej treści */
+    flex-wrap: wrap; 
+}
+
+.nav-tab {
+    background-color: transparent; 
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 0;
+    border-radius: 0;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-tab:hover {
+    background-color: #cc0000; 
+    color: white;
+}
+
+.nav-tab.active-tab {
+    background-color: #cc0000; 
+    color: white;
+    font-weight: bold;
+}
+
+/* GŁÓWNY KONTENER TREŚCI */
+main {
+    margin: 30px auto; 
+    max-width: 900px; 
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    min-height: 400px; 
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* CENTRUJE CAŁĄ ZAWARTOŚĆ W POZIOMIE */
+    text-align: center;
+}
+
+/* STYL DLA PRZYCISKÓW OGÓLNYCH */
+button {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #a80000;
+}
+
+/* ========================================================= */
+/* SEKCJA: DUŻE PRZYCISKI WYBORU QUIZU (KATA/KUMITE) */
+/* ========================================================= */
+#quiz-container {
+    /* Upewnij się, że ten kontener jest centrowany, 
+       a jego potomne elementy (jak przycisk #next-btn) też będą centrowane. */
+    text-align: center; /* <<< DODAJ TĘ LINIĘ */
+    
+    /* ... inne istniejące style ... */
+}
+
+/* Możesz też dodać to do głównego kontenera pytania */
+#question-container {
+    text-align: center; /* <<< DODAJ TĘ LINIĘ */
+    /* ... inne style ... */
+}
+#next-btn {
+    /* Upewnij się, że przycisk ma te style, aby centrowanie działało */
+    display: block; /* Ustawienie elementu jako blokowego */
+    margin-left: auto; /* Centrowanie w poziomie */
+    margin-right: auto;
+    
+    /* Dodaj jakąś szerokość, jeśli chcesz, by nie rozciągał się na całą szerokość */
+    max-width: 250px; 
+    
+    /* ... inne istniejące style ... */
+}
+
+#quiz-selection-view {
+    padding: 20px 0; 
+    margin: 0;
+    width: 100%;
+    
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+}
+/* KONTENER WRAPPER DLA PRZYCISKÓW */
+#quiz-buttons-wrapper {
+    width: 100%; 
+    max-width: 650px; 
+    display: flex;
+    
+    /* UKŁAD PIONOWY */
+    flex-direction: column; 
+    align-items: center; /* CENTROWANIE W POZIOMIE */
+    justify-content: center;
+    
+    /* Ujednolicone i wyśrodkowane marginesy */
+    margin: 20px auto 0 auto; 
+    
+    /* ZAPEWNIENIE PEŁNEJ SZEROKOŚCI NA TELEFONIE */
+    width: 100%; 
+    max-width: none; 
+    
+    gap: 15px; 
+    margin-top: 20px;
+}
+
+/* PRZYCISKI KATA I KUMITE */
+#kata-btn, #kumite-btn {
+    border: 4px solid #cc0000; 
+    color: white;
+    padding: 0; 
+    border-radius: 10px;
+    cursor: pointer;
+    
+    font-size: 2em; 
+    font-weight: bold;
+    
+    /* WAŻNE: To jest stała szerokość, którą nadpisujemy w @media na telefonie */
+    width: 300px; 
+    height: 200px;
+    
+    /* USUNIĘTO: Stare właściwości background, które były duplikowane w ::before */
+    background-size: cover; /* Pozostawiamy dla kompatybilności */
+    background-position: center center; /* Poprawiono: centrowanie tła */
+    background-repeat: no-repeat;
+    
+    margin: 10px 0; 
+    
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    text-shadow: 0 0 5px black, 0 0 7px black; 
+    z-index: 1; 
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+/* PSEUDO-ELEMENTY DLA BLUR I TŁA */
+#kata-btn::before, #kumite-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0; /* Dodano: Pamiętaj o lewej krawędzi */
+    width: 100%;
+    height: 100%;
+    
+    /* KLUCZOWA POPRAWKA: Upewnienie się, że tło pseudoelementu jest centrowane i skalowane */
+    background-position: center center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    filter: blur(3px); 
+    -webkit-filter: blur(3px);
+    
+    transition: filter 0.3s, transform 0.3s;
+    z-index: -1; 
+    
+    background-color: rgba(0, 0, 0, 0.3);
+    background-blend-mode: multiply;
+}
+
+/* Ustawienia obrazów tła w PSEUDO-ELEMENTACH */
+#kata-btn::before {
+    /* Używamy skróconego zapisu z centrowaniem */
+    /* USUNIĘTO: stary background-image: url('kat.jpeg'); */
+    background: url('kat.jpeg') center center / cover no-repeat !important; /* POPRAWKA: Użycie center center */
+}
+
+#kumite-btn::before {
+    /* USUNIĘTO: stary background-image: url('kumi.jpg'); */
+    background: url('kumi.jpg') center center / cover no-repeat !important;
+}
+
+/* EFEKT HOVER */
+#kata-btn:hover, #kumite-btn:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#kata-btn:hover::before, #kumite-btn:hover::before {
+    filter: blur(0px); 
+    -webkit-filter: blur(0px);
+    transform: scale(1.05);
+}
+
+/* ========================================================= */
+/* RESPONSIVE DESIGN - DODATKOWA KONTROLA DLA TELEFONU */
+/* ========================================================= */
+
+@media (max-width: 768px) {
+    main {
+        padding: 0; 
+        margin: 0;  
+        max-width: none !important;
+    }
+    
+    #quiz-buttons-wrapper {
+        max-width: none !important; 
+        width: 100% !important; 
+        margin: 0 !important; 
+        padding: 0 10px !important; /* Dodaj minimalny padding na wrapperze dla estetyki */
+        flex-direction: column;
+    }
+    
+    /* Przyciski Kata/Kumite na telefonie - rozciągnięcie */
+    #kata-btn, #kumite-btn {
+        display: block !important;
+        width: 100% !important; /* Rozciągnięcie na pełną szerokość wrappera */
+        
+        height: 150px; /* Nieco mniejsza wysokość */
+        font-size: 1.5em;
+        
+        margin: 10px 0 !important;
+        text-align: center;
+        
+        /* Wymuś centrowanie tła także tutaj */
+        background-position: center center !important; 
+        background-size: cover !important;
+    }
+    
+    /* Wymuś centrowanie tła także na pseudoelemencie na telefonie */
+    #kata-btn::before, #kumite-btn::before {
+        background-position: center center !important; 
+        background-size: cover !important;
+    }
+    
+    /* ... reszta stylów (np. .answer-btn) ... */
+}
+
+/* ========================================================= */
+/* PRZYCISKI ODPOWIEDZI W QUIZIE (PRAWDA/FAŁSZ) */
+/* ========================================================= */
+
+#answers {
+    display: flex; 
+    justify-content: center;
+    gap: 20px; 
+    align-items: center; 
+    margin-top: 20px;
+    text-align: center;
+    flex-wrap: wrap; 
+}
+
+.answer-btn {
+    width: 150px; 
+    height: 60px;
+    font-size: 1.1em;
+    font-weight: bold;
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* ========================================================= */
+/* RESPONSIVE DESIGN */
+/* ========================================================= */
+
+@media (max-width: 768px) {
+    main {
+        padding: 10px;
+        margin: 15px auto;
+    }
+
+    #quiz-buttons-wrapper {
+        max-width: none !important; 
+        width: 100% !important;    
+        margin:  0 !important; 
+        padding: 0 !important; 
+        flex-direction: column;
+    }
+    /* Przyciski Kata/Kumite na telefonie */
+    #kata-btn, #kumite-btn {
+        display:block !important;
+        width: 300px !important; 
+        
+        height: 150px;
+        font-size: 1.5em;
+        padding: 0 10px;
+        margin: 10px 0 !important;
+        text-align: center;
+        background-position: center center !important; 
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
+    
+    /* Przyciski odpowiedzi Prawda/Fałsz */
+    .answer-btn {
+        width: 100px; 
+        height: 50px;
+        font-size: 1em;
+    }
+}
+
+/* ========================================================= */
+/* STYLE DLA NOWYCH WIDOKÓW I LIST */
+/* ========================================================= */
+
+.content-view {
+    /* Twoja zmiana, która może być OK */
+    text-align: center; 
+    padding: 0 20px; 
+}
+
+#question-container {
+    /* Pozwalamy, aby to Flexbox w main go centrował, ale ograniczamy jego max. szerokość */
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    
+    /* Musi być Flexbox, żeby prawidłowo układać przyciski odpowiedzi */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrowanie elementów wewnątrz (np. h2, answers) */
+    text-align: center;
+}
+
+#question-container h2 {
+    /* Gwarantuje centrowanie samego pytania */
+    text-align: center; 
+}
+
+.questions-list {
+    list-style: none;
+    padding: 0;
+}
+
+.question-item {
+    margin-bottom: 25px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+    border-radius: 5px;
+}
+
+.question-item p {
+    margin: 5px 0;
+}
+
+.correct-answer {
+    color: green;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.explanation-text {
+    color: #555;
+    font-size: 0.9em;
+}
+
+#offer {
+  margin: 40px auto;
+  max-width: 600px;
+  background: #1088b8;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  margin-top: 40px;
+}
+/* STYL DLA NOWEJ SEKCJI KONTAKT W STOPCE */
+#contact-section {
+    background-color: #555; /* Delikatnie jaśniejszy kolor tła niż stopka */
+    color: white;
+    padding: 15px 20px;
+    margin: 0 auto 20px auto; /* Wyśrodkowanie i odstęp na dole */
+    max-width: 400px;
+    border-radius: 8px;
+}
+
+#contact-section h3 {
+    margin-top: 0;
+    color: #cc0000; /* Użycie koloru wiodącego dla nagłówka */
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quiz o przepisach karate - sprawdź swoją wiedzę i zostań mistrzem!">
+  <title>Quiz o przepisach karate</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🥋 Quiz 🥋</h1>
+    <p>Sprawdź, jak dobrze znasz przepisy karate - kata i kumite</p>
+  </header>
+
+  <nav id="main-nav">
+    <button class="nav-tab" data-target="quiz-selection-view">Quiz</button>
+    <button class="nav-tab" data-target="kata-list-view">Lista Pytań Kata</button>
+    <button class="nav-tab" data-target="kumite-list-view">Lista Pytań Kumite</button>
+    <button class="nav-tab" data-target="kata-rules-view">Przepisy Kata (PUK)</button>
+    <button class="nav-tab" data-target="kumite-rules-view">Przepisy Kumite (PUK)</button>
+  </nav>
+
+  <main id="content-area">
+    
+<section id="quiz-selection-view" class="content-view" style="text-align: center" >
+      <h2>Wybierz rodzaj quizu</h2>
+      
+      <div id="quiz-buttons-wrapper">
+        
+        <div class="quiz-btn-container">
+          <button id="kata-btn">Kata</button>
+        </div>
+        
+        <div class="quiz-btn-container">
+          <button id="kumite-btn">Kumite</button>
+          <p id="info-kumite" style="display: none;"></p>
+        </div>
+        
+      </div>
+    </section>
+
+    <div id="quiz-container" style="display: none; text-align: center">
+        <div id="question-container">
+            <h2 id="question"></h2>
+            <div id="answers"></div>
+        </div>
+        <button id="next-btn">Następne pytanie</button>
+    </div>
+
+    <section id="kata-list-view" class="content-view" style="display: none;">
+      <h2>Lista Pytań Kata</h2>
+      <p>Pytania egzaminacyjne z oficjalnej strony Polskiej Unii Karate.</p>
+      <div id="kata-search-box" style="margin: 20px auto; max-width: 400px; text-align: center;">
+          <label for="kata-question-number">Wyszukaj pytanie po numerze:</label>
+          <input type="number" id="kata-question-number" min="1" placeholder="Numer pytania" style="width: 120px; padding: 8px; margin: 10px 10px 10px 0;">
+          <button onclick="searchQuestion('kata')">Szukaj</button>
+          
+          <div id="kata-search-result" style="margin-top: 15px; text-align: left; padding: 10px; border: 1px solid #ccc; border-radius: 5px; display: none;">
+              </div>
+      </div>
+      <div id="kata-full-list-content">
+          </div>
+      </div>
+      <p style="margin-top: 30px;">Dokument źródłowy:</p>
+      <a href="https://karate-polska.pl/wp-content/uploads/2024/01/pytania-kata-wkf-wersja-2024.00.pdf" target="_blank">Pytania egzaminacyjne Kata</a>
+      <p><br></p>
+      <iframe src="pytania_kata.pdf" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 5px;">
+        Ten element iframe nie jest wspierany przez Twoją przeglądarkę. Zamiast tego <a href="pytania_kata.pdf">pobierz plik PDF</a>.
+      </iframe>
+    </section>
+
+    <section id="kumite-list-view" class="content-view" style="display: none;">
+      <h2>Lista Pytań Kumite</h2>
+      <p>Pytania egzaminacyjne z oficjalnej strony Polskiej Unii Karate.</p>
+      <p style="margin-top: 30px;">Dokument źródłowy:</p>
+      <a href="https://karate-polska.pl/wp-content/uploads/2024/01/pytania-kumite-wkf-wersja-2024.00.pdf" target="_blank">Pytania egzaminacyjne Kumite</a>
+      <p><br></p>
+      <iframe src="pytania_kumite.pdf" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 5px;">
+        Ten element iframe nie jest wspierany przez Twoją przeglądarkę. Zamiast tego <a href="pytania_kumite.pdf">pobierz plik PDF</a>.
+      </iframe>
+    </section>
+
+    <section id="kata-rules-view" class="content-view" style="display: none;">
+      <h2>Przepisy Kata (PUK)</h2>
+      <p>Aktualne Przepisy Sędziowskie PUK z oficjalnej strony Polskiej Unii Karate.</p>
+      <p style="margin-top: 30px;">Dokument źródłowy:</p>
+      <a href="https://karate-polska.pl/wp-content/uploads/2024/03/przepisy-puk-kata-2024_wer01_01.01.2024.pdf" target="_blank">Przepisy Kata PUK (obowiązujące od 01.01.2024)</a>
+      <p><br></p>
+      <iframe src="przepisy_kata.pdf" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 5px;">
+        Ten element iframe nie jest wspierany przez Twoją przeglądarkę. Zamiast tego <a href="przepisy_kata.pdf">pobierz plik PDF</a>.
+      </iframe>
+    </section>
+    
+    <section id="kumite-rules-view" class="content-view" style="display: none;">
+      <h2>Przepisy Kumite (PUK)</h2>
+      <p>Aktualne Przepisy Sędziowskie PUK z oficjalnej strony Polskiej Unii Karate.</p>
+      <p style="margin-top: 30px;">Dokument źródłowy:</p>
+      <a href="https://karate-polska.pl/wp-content/uploads/2025/09/przepisy-puk-kumite-2024_wer04_11.09.2025.pdf" target="_blank">Przepisy Kumite PUK (obowiązujące od 01.01.2024)</a>
+      <p><br></p>
+      <iframe src="przepisy_kumite.pdf" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 5px;">
+        Ten element iframe nie jest wspierany przez Twoją przeglądarkę. Zamiast tego <a href="przepisy_kumite.pdf">pobierz plik PDF</a>.
+      </iframe>
+    </section>
+
+
+  </main>
+
+  <footer>
+        <section id="offer">
+        <h2>Kontakt</h2>
+        <p>W razie jakichkolwiek pytań, problemów technicznych lub innych spraw, proszę o kontakt</p>
+        <button id="contact-btn">Skontaktuj się</button>
+    </section>
+    <p>© 2025 Quiz Karate. Page by K Rybszleger</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
